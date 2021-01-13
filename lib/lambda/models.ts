@@ -10,5 +10,10 @@ export const put_item = (): {} => {
 };
 
 export const search_items = (): {} => {
-    return { statusCode: 200, body: 'items' };
+    console.log('search_items');
+    var response = {
+        "statusCode": 200,
+        "body": JSON.stringify('search_items')
+    }
+    return response;
 };

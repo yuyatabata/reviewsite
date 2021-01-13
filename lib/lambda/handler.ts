@@ -8,9 +8,9 @@ export const handler = async (event: any = {}): Promise<any> => {
         console.log('path:',path);
 
         if (path === '/new'){
-            await put_item()
+            return put_item();
         } else if (path === '/products'){
-            await search_items()
+            return search_items()
         } else {
             return { statusCode: 404 }
         }
