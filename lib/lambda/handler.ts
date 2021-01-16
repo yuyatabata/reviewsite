@@ -15,6 +15,7 @@ export const handler = async (event: any = {}): Promise<any> => {
             return { statusCode: 404 }
         }
     } catch {
+        console.log('set error');
         return { statusCode: 500 }
     }
 };
