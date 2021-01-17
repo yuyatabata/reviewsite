@@ -4,6 +4,7 @@ import * as lambda from '@aws-cdk/aws-lambda-nodejs';
 import {LambdaRestApi, RestApi} from '@aws-cdk/aws-apigateway';
 import {Table, AttributeType, } from "@aws-cdk/aws-dynamodb";
 import * as iam from '@aws-cdk/aws-iam';
+import { StringParameter } from '@aws-cdk/aws-ssm';
 
 
 export class ReviewsiteStack extends cdk.Stack {
@@ -36,14 +37,12 @@ export class ReviewsiteStack extends cdk.Stack {
 
     new StringParameter(this, 'BookTableArn', {
       parameterName: 'BookTableArn',
-      strignValue: booktable.tableArn,
+      stringValue: booktable.tableArn,
     });
 
-    const tableArn = 'arn:aws:dynamodb:' + 
-
     handlerLambda.addToRolePolicy(new iam.PolicyStatement({
-      resources: [],
-      actions: ['dynamodb:GetItem']
+      resources: [booktable.tableArn],
+      actions: ['dynamodb:*']
     }));
 
   }

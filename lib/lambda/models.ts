@@ -30,20 +30,32 @@ export const put_item = (): {} => {
     return response;
 };
 
-export const search_items = (): {} => {
+export const search_items = async (): {} => {
     console.log('search_items');
     var params = {
         TableName: 'Book',
-        KeyConditionExpression: 'Title = :Title and Author = :Author',
-        ExpressionAttributeValue: {
-            ':Title': '「空気」の研究',
-            ':Author': '山本七平'
+        KeyConditionExpression: "#Title = :Title",
+        ExpressionAttributeNames: {
+        "#Title": "Title",
+        },
+        ExpressionAttributeValues: {
+        ":Title": "「空気」の研究2",
         }
     };
-    var result = client.query(params);
     var response = {
-        "statusCode": 200,
-        "body": JSON.stringify(result)
-    }
-    return response;
+        statusCode: 200,
+        headers: {},
+        body: null
+    };
+    client.query(params).promise().then((data) => {
+        console.log('data:',data);
+        response.body = data["Items"][0];
+        console.log("body:", response.body);
+        console.log("response:", response);
+    }).catch((err) => {
+        console.log(err);
+    });
+    return await response
 };
+
+
