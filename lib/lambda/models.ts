@@ -1,4 +1,4 @@
-const AWS = require('aws-sdk')
+const AWS = require('aws-sdk');
 require('dotenv').config();
 
 const TABLE_NAME = process.env.TABLE_NAME || "";
