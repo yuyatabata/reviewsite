@@ -59,3 +59,37 @@ export const search_items = async (): {} => {
 };
 
 
+export const search_comments = async (): {} => {
+    var params = {
+        TableName : 'Comments',
+        keyConditionExpression: "#Title = :Title",
+        ExpressionAttributeNames: {
+            "#Title": "Title"
+        },
+        ExpressionAttributeValues: {
+            ":Title": "「空気」の研究"
+        }
+    };
+    
+    var resultJSON = await client.query(params, function(err, data) {
+        if (err) {
+            console.log(err, err.stack);
+        } else {
+            console.log(data);
+        }
+    }).promise();
+
+    var items = "miss";
+    if(resultJSON != null) {
+        items = resultJSON.Items;
+    }
+
+    const response = {
+        headers: {
+            'Content-type': 'application/json;charset=UTF-8'
+        },
+        statusCode: 200,
+        body: JSON.stringify(items),
+    };
+    return response;
+};
