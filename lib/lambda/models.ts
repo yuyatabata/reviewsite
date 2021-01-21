@@ -6,7 +6,7 @@ const PRIMARY_KEY = process.env.PRIMARY_KEY || "";
 
 var client = new AWS.DynamoDB.DocumentClient();
 
-export const put_item = (): {} => {
+export const put_item = (): object => {
     console.log('put_item');
     var params = {
         TableName: 'Book',
@@ -30,7 +30,7 @@ export const put_item = (): {} => {
     return response;
 };
 
-export const search_items = async (): {} => {
+export const search_items = (): object => {
     console.log('search_items');
     var params = {
         TableName: 'Book',
@@ -59,7 +59,7 @@ export const search_items = async (): {} => {
 };
 
 
-export const search_comments = async (): {} => {
+export const search_comments = async () => {
     var params = {
         TableName : 'Comments',
         keyConditionExpression: "#Title = :Title",
